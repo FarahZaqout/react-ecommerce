@@ -44,7 +44,7 @@ html, body {
       transition: transform 6s; }
     .menu-item:hover .content {
       opacity: 0.9; }
-  .menu-item .large {
+  .menu-item.large {
     height: 380px; }
   .menu-item:first-child {
     margin-right: 7.5px; }
@@ -65,7 +65,13 @@ html, body {
     justify-content: center;
     border: 1px solid #000;
     background: #fff;
-    opacity: 0.7; }
+    opacity: 0.7;
+    text-decoration: none;
+    color: #4a4a4a; }
+    .menu-item .content:visited {
+      text-decoration: none; }
+    .menu-item .content:focus {
+      opacity: 0.9; }
     .menu-item .content .menu-item__title {
       font-weight: bold;
       margin-bottom: 6px;
@@ -74,3 +80,39 @@ html, body {
     .menu-item .content .menu-item__subtitle {
       font-weight: lighter;
       font-size: 16px; }
+
+.shop__collection {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px; }
+  .shop__collection .shop__collection-title {
+    font-size: 28px;
+    margin-bottom: 25px; }
+  .shop__collection .shop__collection-preview {
+    display: flex;
+    justify-content: space-between; }
+
+.collection-item {
+  width: 22%;
+  display: flex;
+  flex-direction: column;
+  height: 350px;
+  align-items: center; }
+  .collection-item .collection-item__image {
+    width: 100%;
+    height: 95%;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 5px; }
+  .collection-item .collection-item__footer {
+    width: 100%;
+    height: 5%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px; }
+    .collection-item .collection-item__footer .collection-item__name {
+      width: 90%;
+      margin-bottom: 15px; }
+    .collection-item .collection-item__footer .collection-item__price {
+      width: 10%;
+      text-align: left; }

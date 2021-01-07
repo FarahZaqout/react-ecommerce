@@ -6,7 +6,7 @@ import mapStateToProps from './reduxHelpers';
 const Shop = (props) => {
   const { shopData } = props;
   return (
-    <section>
+    <section className="shop">
       {shopData.map((item) => {
         const { id, title, items } = item;
         return <Collection key={id} title={title} items={items} />;

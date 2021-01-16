@@ -1,4 +1,4 @@
-import { setLogin } from '../../../redux';
+import { setLogin, setCurrentUser } from '../../../redux';
 
 const mapStateToProps = (state) => {
   const { loginInfo } = state;
@@ -9,6 +9,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   setLogin,
+  setCurrentUser,
 };
 
 export { mapStateToProps, mapDispatchToProps };

@@ -6,7 +6,7 @@ import { mapStateToProps, mapDispatchToProps } from './utils';
 import { signInWithGoogle, auth } from '../../firebase';
 
 const Login = (props) => {
-  const { setLogin, loginInfo } = props;
+  const { loginInfo, setLogin, setCurrentUser } = props;
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -17,9 +17,8 @@ const Login = (props) => {
     e.preventDefault();
     const { email, password } = loginInfo;
     const { user } = await auth.signInWithEmailAndPassword(email, password);
-    setLogin({
+    setCurrentUser({
       user: user.displayName,
-      email: user.email,
       profilePicture: user.photoURL,
     });
   };
@@ -27,9 +26,8 @@ const Login = (props) => {
   const googleAuth = async (e) => {
     e.preventDefault();
     const { user } = await signInWithGoogle();
-    setLogin({
+    setCurrentUser({
       user: user.displayName,
-      email: user.email,
       profilePicture: user.photoURL,
     });
   };
@@ -74,6 +72,7 @@ const Login = (props) => {
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
 Login.propTypes = {
+  setCurrentUser: PropTypes.func.isRequired,
   setLogin: PropTypes.func.isRequired,
   loginInfo: PropTypes.shape({
     email: PropTypes.string,

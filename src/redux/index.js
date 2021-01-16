@@ -1,2 +1,2 @@
 export { default as store } from './store';
-export { setLogin } from './actions';
+export { setLogin, setCurrentUser } from './actions';

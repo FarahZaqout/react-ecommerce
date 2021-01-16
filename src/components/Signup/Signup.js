@@ -5,7 +5,7 @@ import { signInWithGoogle, auth } from '../../firebase';
 import { mapStateToProps, mapDispatchToProps } from './utils';
 
 const Signup = (props) => {
-  const { loginInfo, setLogin } = props;
+  const { loginInfo, setLogin, setCurrentUser } = props;
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -16,7 +16,14 @@ const Signup = (props) => {
     e.preventDefault();
     const { email, password } = loginInfo;
     try {
-      await auth.createUserWithEmailAndPassword(email, password);
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password,
+      );
+      setCurrentUser({
+        user: user.displayName,
+        profilePicture: user.photoURL,
+      });
     } catch (error) {
       console.log('error in sign-up', error);
     }
@@ -25,9 +32,8 @@ const Signup = (props) => {
   const googleAuth = async (e) => {
     e.preventDefault();
     const { user } = await signInWithGoogle();
-    setLogin({
+    setCurrentUser({
       user: user.displayName,
-      email: user.email,
       profilePicture: user.photoURL,
     });
   };
@@ -80,6 +86,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Signup);
 
 Signup.propTypes = {
   setLogin: PropTypes.func.isRequired,
+  setCurrentUser: PropTypes.func.isRequired,
   loginInfo: PropTypes.shape({
     email: PropTypes.string,
     password: PropTypes.string,

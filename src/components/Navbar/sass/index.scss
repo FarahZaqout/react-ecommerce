@@ -1,3 +1,8 @@
+@mixin hoverLink {
+  background: #000;
+  color: #fff;
+}
+
 .navbar {
   height: 70px;
   width: 100%;
@@ -22,9 +27,30 @@
     .navlink {
       padding: 10px 15px;
       text-decoration: none;
+      margin: 0 5px 0 0;
       color: #000;
       font-weight: 700;
       font-size: 20px;
+      transition: all 0.4s ease;
+      &:hover {
+        @include hoverLink();
+        transition: all 0.4s ease;
+      }
+    }
+    button {
+      padding: 10px 15px;
+      color: #000;
+      font-size: 20px;
+      background: none;
+      font-weight: 700;
+      border: none;
+      outline: none;
+      font-family: 'Open Sans Condensed', sans-serif;
+      transition: all 0.4s ease;
+      &:hover {
+        @include hoverLink();
+        transition: all 0.4s ease;
+      }
     }
   }
 }

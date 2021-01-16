@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { InputField } from '../InputField';
 
 import { mapStateToProps, mapDispatchToProps } from './utils';
@@ -8,6 +9,7 @@ import { customModal } from '../Modals';
 
 const Login = (props) => {
   const { loginInfo, setLogin, setCurrentUser } = props;
+  const history = useHistory();
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -31,10 +33,12 @@ const Login = (props) => {
         user: userInfo.displayName,
         profilePicture: userInfo.photoURL,
       });
-      customModal({
+      // redirect only after the user interacts with modal
+      await customModal({
         title: 'You are now logged in!',
         icon: 'success',
       });
+      history.goBack();
     } catch (error) {
       if (error.code !== 'auth/popup-closed-by-user') {
         customModal({

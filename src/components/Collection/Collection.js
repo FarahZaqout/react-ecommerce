@@ -7,17 +7,14 @@ const Collection = ({ title, items }) => (
     <div className="shop__collection-preview">
       {items
         .filter((item, index) => index < 4)
-        .map(({ id, name, price, imageUrl }) => {
-          console.log(imageUrl);
-          return (
-            <CollectionItem
-              key={id}
-              name={name}
-              price={price}
-              imageUrl={imageUrl}
-            />
-          );
-        })}
+        .map(({ id, name, price, imageUrl }) => (
+          <CollectionItem
+            key={id}
+            name={name}
+            price={price}
+            imageUrl={imageUrl}
+          />
+        ))}
     </div>
   </div>
 );

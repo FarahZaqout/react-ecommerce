@@ -1,12 +1,18 @@
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { InputField } from '../InputField';
 import { signInWithGoogle, auth } from '../../firebase';
-import { mapStateToProps, mapDispatchToProps } from './utils';
+import { customModal } from '../Modals';
+import {
+  mapStateToProps,
+  mapDispatchToProps,
+  signupUserExperience,
+} from './utils';
 
 const Signup = (props) => {
   const { loginInfo, setLogin, setCurrentUser } = props;
-
+  const history = useHistory();
   const onChange = (e) => {
     const { name, value } = e.target;
     setLogin({ ...loginInfo, [name]: value });
@@ -24,18 +30,29 @@ const Signup = (props) => {
         user: user.displayName,
         profilePicture: user.photoURL,
       });
+      customModal({
+        title: 'You are now logged in!',
+        icon: 'success',
+      });
     } catch (error) {
-      console.log('error in sign-up', error);
+      customModal({
+        title: 'Something went wrong! Try again.',
+        icon: 'warning',
+      });
     }
   };
 
   const googleAuth = async (e) => {
     e.preventDefault();
-    const { user } = await signInWithGoogle();
-    setCurrentUser({
-      user: user.displayName,
-      profilePicture: user.photoURL,
-    });
+    try {
+      const { user } = await signInWithGoogle();
+      signupUserExperience(user, history, setCurrentUser);
+    } catch (error) {
+      customModal({
+        title: 'Something went wrong! Try again.',
+        icon: 'warning',
+      });
+    }
   };
 
   return (

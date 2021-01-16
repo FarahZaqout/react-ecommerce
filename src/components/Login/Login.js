@@ -4,6 +4,7 @@ import { InputField } from '../InputField';
 
 import { mapStateToProps, mapDispatchToProps } from './utils';
 import { signInWithGoogle, auth } from '../../firebase';
+import { customModal } from '../Modals';
 
 const Login = (props) => {
   const { loginInfo, setLogin, setCurrentUser } = props;
@@ -15,21 +16,33 @@ const Login = (props) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const { email, password } = loginInfo;
-    const { user } = await auth.signInWithEmailAndPassword(email, password);
-    setCurrentUser({
-      user: user.displayName,
-      profilePicture: user.photoURL,
-    });
-  };
-
-  const googleAuth = async (e) => {
-    e.preventDefault();
-    const { user } = await signInWithGoogle();
-    setCurrentUser({
-      user: user.displayName,
-      profilePicture: user.photoURL,
-    });
+    const { name } = e.target;
+    try {
+      const { email, password } = loginInfo;
+      let userInfo;
+      if (name === 'submitButton') {
+        const { user } = await auth.signInWithEmailAndPassword(email, password);
+        userInfo = user;
+      } else {
+        const { user } = await signInWithGoogle();
+        userInfo = user;
+      }
+      setCurrentUser({
+        user: userInfo.displayName,
+        profilePicture: userInfo.photoURL,
+      });
+      customModal({
+        title: 'You are now logged in!',
+        icon: 'success',
+      });
+    } catch (error) {
+      if (error.code !== 'auth/popup-closed-by-user') {
+        customModal({
+          title: 'Something went wrong! Try again.',
+          icon: 'warning',
+        });
+      }
+    }
   };
 
   return (
@@ -55,13 +68,15 @@ const Login = (props) => {
           className="submit-button"
           onClick={onSubmit}
           type="submit"
+          name="submitButton"
           value="Login"
         />
         <span className="form__inner-span">OR</span>
         <input
           className="submit-button google-button"
-          onClick={googleAuth}
+          onClick={onSubmit}
           type="submit"
+          name="googleButton"
           value="Login with google"
         />
       </form>

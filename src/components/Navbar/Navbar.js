@@ -2,20 +2,27 @@ import { useEffect } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { mapStateToProps, mapDispatchToProps } from './utils';
 import { auth, getUserReference } from '../../firebase';
+import { customModal } from '../Modals';
 
 const Navbar = (props) => {
   const { currentUser, setCurrentUser, history } = props;
 
-  const onClick = () => {
+  const onClick = async () => {
     //  if user is signed in sign out, otherwise go to login page
     if (currentUser.user) {
-      auth.signOut();
+      await auth.signOut();
       setCurrentUser({
         user: '',
         profilePicture: '',
+      });
+
+      customModal({
+        title: 'Signed out successfully',
+        icon: 'success',
       });
       // add sweet alert to let the user know
     } else {

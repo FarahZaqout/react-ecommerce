@@ -4,6 +4,7 @@ import {
   shopReducer as shopData,
   loginInfoReducer as loginInfo,
   currentUserReducer as currentUser,
+  cartStateReducer as cartState,
 } from './reducers';
 
 const reduxState = combineReducers({
@@ -11,6 +12,7 @@ const reduxState = combineReducers({
   shopData,
   loginInfo,
   currentUser,
+  cartState,
 });
 
 const store = createStore(reduxState);

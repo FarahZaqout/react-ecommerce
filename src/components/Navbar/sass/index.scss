@@ -27,12 +27,17 @@
     .navlink {
       padding: 10px 15px;
       text-decoration: none;
+      text-align: center;
       margin: 0 5px 0 0;
       color: #000;
       font-weight: 700;
       font-size: 20px;
       transition: all 0.4s ease;
       &:hover {
+        @include hoverLink();
+        transition: all 0.4s ease;
+      }
+      &:focus {
         @include hoverLink();
         transition: all 0.4s ease;
       }
@@ -44,10 +49,13 @@
       background: none;
       font-weight: 700;
       border: none;
-      outline: none;
       font-family: 'Open Sans Condensed', sans-serif;
       transition: all 0.4s ease;
       &:hover {
+        @include hoverLink();
+        transition: all 0.4s ease;
+      }
+      &:focus {
         @include hoverLink();
         transition: all 0.4s ease;
       }

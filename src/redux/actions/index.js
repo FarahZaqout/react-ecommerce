@@ -1,2 +1,8 @@
 export { setLogin, setCurrentUser } from './loginAction';
-export { loginActionTypes, shopActionTypes, menuActionTypes } from './types';
+export { default as setCartState } from './cartActions';
+export {
+  loginActionTypes,
+  shopActionTypes,
+  menuActionTypes,
+  cartActionTypes,
+} from './types';

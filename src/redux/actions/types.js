@@ -11,4 +11,8 @@ const shopActionTypes = {
   SET_SHOP_DATA: 'SET_SHOP_DATA',
 };
 
-export { loginActionTypes, menuActionTypes, shopActionTypes };
+const cartActionTypes = {
+  SET_CART_STATE: 'SET_CART_STATE',
+};
+
+export { loginActionTypes, menuActionTypes, shopActionTypes, cartActionTypes };

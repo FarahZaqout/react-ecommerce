@@ -6,22 +6,28 @@ import { mapStateToProps, mapDispatchToProps } from './utils';
 
 const Cart = (props) => {
   const { cartState, setCartState } = props;
+  const { isHidden, itemCount } = cartState;
 
   const onClick = () => {
-    const { isHidden } = cartState;
     setCartState({ ...cartState, isHidden: !isHidden });
   };
 
   return (
-    <div
-      onClick={onClick}
-      onKeyDown={onClick}
-      tabIndex={0}
-      role="button"
-      className="cart-icon"
-    >
-      <ShoppingBag className="shopping-bag" />
-      <span className="item-count">112</span>
+    <div tabIndex={0} role="button" className="cart-icon">
+      <ShoppingBag
+        onClick={onClick}
+        onKeyDown={onClick}
+        className="shopping-bag"
+      />
+      <span
+        role="button"
+        tabIndex={0}
+        onClick={onClick}
+        onKeyDown={onClick}
+        className="item-count"
+      >
+        {itemCount}
+      </span>
       <CartDropdown />
     </div>
   );

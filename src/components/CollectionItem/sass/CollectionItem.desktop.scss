@@ -12,6 +12,30 @@
     background-size: cover;
     background-position: center;
     margin-bottom: 5px;
+    position: relative;
+
+    button {
+      position: absolute;
+      bottom: 30px;
+      left: 10%;
+      width: 80%;
+      padding: 10px 15px;
+      text-decoration: none;
+      text-align: center;
+      color: #000;
+      background: #ffffffc7;
+      font-weight: 700;
+      font-size: 16px;
+      border: none;
+      &:hover {
+        color: #ffffff;
+        background: #0000005d;
+      }
+      &:focus {
+        color: #ffffff;
+        background: #0000005d;
+      }
+    }
   }
 
   .collection-item__footer {

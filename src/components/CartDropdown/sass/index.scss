@@ -16,10 +16,24 @@
   }
 
   .cart-items {
-    height: 240px;
+    height: 350px;
     display: flex;
     flex-direction: column;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .cart-items::-webkit-scrollbar-track {
+    background: #fff;
+    border-radius: 10px;
+  }
+
+  .cart-items::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #141414cc;
   }
 
   .checkout-link {

@@ -1,22 +1,57 @@
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { mapDispatchToProps, mapStateToProps } from './utils';
 
-const CollectionItem = ({ name, price, imageUrl }) => (
-  <div className="collection-item">
-    <div
-      className="collection-item__image"
-      style={{ backgroundImage: `url(${imageUrl})` }}
-    />
-    <div className="collection-item__footer">
-      <span className="collection-item__name">{name}</span>
-      <span className="collection-item__price">{price}</span>
+const CollectionItem = ({
+  id,
+  name,
+  price,
+  imageUrl,
+  cartState,
+  setCartState,
+}) => {
+  const onClick = () => {
+    const items = { ...cartState.cartItems };
+    let itemCount = 0;
+
+    if (items[id]) items[id].quantity += 1;
+    else items[id] = { id, name, price, imageUrl, quantity: 1 };
+
+    // update the total number of items in cart
+    if (Object.values(items).length) {
+      Object.values(items).forEach(({ quantity }) => {
+        itemCount += quantity;
+      });
+    }
+
+    setCartState({ ...cartState, cartItems: items, itemCount });
+  };
+
+  return (
+    <div className="collection-item">
+      <div
+        className="collection-item__image"
+        style={{ backgroundImage: `url(${imageUrl})` }}
+      >
+        <button type="button" onClick={onClick}>
+          ADD TO CART
+        </button>
+      </div>
+      <div className="collection-item__footer">
+        <span className="collection-item__name">{name}</span>
+        <span className="collection-item__price">{price}</span>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
-export default CollectionItem;
+export default connect(mapStateToProps, mapDispatchToProps)(CollectionItem);
 
 CollectionItem.propTypes = {
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   imageUrl: PropTypes.string.isRequired,
+  cartState: PropTypes.object.isRequired, // eslint-disable-line
+  setCartState: PropTypes.func.isRequired,
 };

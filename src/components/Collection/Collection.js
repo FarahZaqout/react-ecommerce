@@ -9,6 +9,7 @@ const Collection = ({ title, items }) => (
         .filter((item, index) => index < 4)
         .map(({ id, name, price, imageUrl }) => (
           <CollectionItem
+            id={id}
             key={id}
             name={name}
             price={price}

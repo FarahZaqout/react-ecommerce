@@ -13,7 +13,6 @@ const CollectionItem = ({
   const onClick = () => {
     const items = { ...cartState.cartItems };
     let itemCount = 0;
-
     if (items[id]) items[id].quantity += 1;
     else items[id] = { id, name, price, imageUrl, quantity: 1 };
 

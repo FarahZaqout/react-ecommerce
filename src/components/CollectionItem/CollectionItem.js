@@ -12,20 +12,19 @@ const CollectionItem = ({
 }) => {
   const onClick = () => {
     const items = { ...cartState.cartItems };
-    let itemCount = 0;
+    let itemCount;
     if (items[id]) items[id].quantity += 1;
     else items[id] = { id, name, price, imageUrl, quantity: 1 };
 
     // update the total number of items in cart
     if (Object.values(items).length) {
-      Object.values(items).forEach(({ quantity }) => {
-        itemCount += quantity;
-      });
+      itemCount = Object.values(items).reduce(
+        (_accumulator, { quantity }) => _accumulator + quantity,
+        0,
+      );
     }
-
     setCartState({ ...cartState, cartItems: items, itemCount });
   };
-
   return (
     <div className="collection-item">
       <div

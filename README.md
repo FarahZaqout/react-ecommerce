@@ -1,6 +1,7 @@
-TODO - login/signup:
+TODO:
 
 - implement form validation
+- migrate from legacy stripe sdk to the new one with a node server.
 
 TODO - STYLE:
 
